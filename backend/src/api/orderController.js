@@ -22,4 +22,24 @@ router.get("/:id", (req, res) => {
   res.json(order);
 });
 
+// --- Order tracking (feature/order-tracking) ---
+// Update order status as it progresses through the delivery pipeline
+router.patch("/:id/status", (req, res) => {
+  const order = orders.find((o) => o.id === Number(req.params.id));
+  if (!order) return res.status(404).json({ error: "Order not found" });
+  const allowed = ["PLACED", "PREPARING", "OUT_FOR_DELIVERY", "DELIVERED"];
+  if (!allowed.includes(req.body.status)) {
+    return res.status(400).json({ error: "Invalid status" });
+  }
+  order.status = req.body.status;
+  res.json(order);
+});
+
+// Live tracking endpoint used by the customer app
+router.get("/:id/track", (req, res) => {
+  const order = orders.find((o) => o.id === Number(req.params.id));
+  if (!order) return res.status(404).json({ error: "Order not found" });
+  res.json({ id: order.id, status: order.status });
+});
+
 module.exports = router;
