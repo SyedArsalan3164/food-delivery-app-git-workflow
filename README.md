@@ -34,3 +34,7 @@ Every pull request runs the checks defined in
 
 The full IEEE-format case study report is included as
 `Case_Study_Git_Collaboration.docx` at the root of this repository.
+-e 
+### Status
+
+Active development branch. See CONTRIBUTING.md before opening a PR.
