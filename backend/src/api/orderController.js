@@ -10,6 +10,7 @@ router.post("/", (req, res) => {
     id: orders.length + 1,
     items: req.body.items,
     status: "PLACED",
+    paymentStatus: "PENDING",
   };
   orders.push(order);
   res.status(201).json(order);
@@ -19,6 +20,15 @@ router.post("/", (req, res) => {
 router.get("/:id", (req, res) => {
   const order = orders.find((o) => o.id === Number(req.params.id));
   if (!order) return res.status(404).json({ error: "Order not found" });
+  res.json(order);
+});
+
+// --- Payment integration (feature/payment-integration) ---
+// Confirm payment for an order
+router.post("/:id/pay", (req, res) => {
+  const order = orders.find((o) => o.id === Number(req.params.id));
+  if (!order) return res.status(404).json({ error: "Order not found" });
+  order.paymentStatus = "PAID";
   res.json(order);
 });
 
