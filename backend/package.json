@@ -1,0 +1,17 @@
+{
+  "name": "food-delivery-backend",
+  "version": "1.0.0",
+  "description": "Shared backend API for the Food Delivery Application",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "jest"
+  },
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.5.0"
+  },
+  "devDependencies": {
+    "jest": "^29.7.0"
+  }
+}
