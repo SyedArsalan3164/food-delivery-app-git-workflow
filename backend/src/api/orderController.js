@@ -49,6 +49,7 @@ router.post("/:id/pay", (req, res) => {
   const order = orders.find((o) => o.id === Number(req.params.id));
   if (!order) return res.status(404).json({ error: "Order not found" });
   order.paymentStatus = "PAID";
+  order.paidAt = new Date().toISOString(); // hotfix: record payment timestamp to diagnose timeouts
   res.json(order);
 });
 
